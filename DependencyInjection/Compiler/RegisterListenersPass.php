@@ -85,7 +85,7 @@ class RegisterListenersPass implements CompilerPassInterface
                     throw new \InvalidArgumentException(sprintf('Service "%s" must define the "method" attribute on "%s" tags.', $id, $this->listenerTag));
                 }
 
-                $definition->addMethodCall('addListenerService', array(SchedulerEvents::SCHEDULE, array($id, $tag['method']), $priority));
+                $definition->addMethodCall('addListener', array(SchedulerEvents::SCHEDULE, array($id, $tag['method']), $priority));
             }
         }
 
