@@ -12,8 +12,8 @@ namespace Abc\Bundle\SchedulerBundle\Doctrine;
 
 use Abc\Bundle\SchedulerBundle\Model\ScheduleInterface;
 use Abc\Bundle\SchedulerBundle\Model\ScheduleManager as BaseScheduleManager;
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 
 /**
  *  ScheduleManager manages doctrine entities.
@@ -28,7 +28,7 @@ class ScheduleManager extends BaseScheduleManager
     protected $class;
 
     /**
-     * @var ObjectManager
+     * @var EntityManager
      */
     protected $objectManager;
 
@@ -38,10 +38,10 @@ class ScheduleManager extends BaseScheduleManager
     protected $repository;
 
     /**
-     * @param ObjectManager $om
+     * @param EntityManager $om
      * @param string        $class
      */
-    public function __construct(ObjectManager $om, $class)
+    public function __construct(EntityManager $om, $class)
     {
         $this->objectManager = $om;
         $this->repository    = $om->getRepository($class);
