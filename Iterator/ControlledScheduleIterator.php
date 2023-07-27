@@ -40,7 +40,7 @@ class ControlledScheduleIterator implements ScheduleIteratorInterface
     /**
      * {@inheritdoc}
      */
-    public function current()
+    public function current(): mixed
     {
         return $this->scheduleIterator->current();
     }
@@ -48,7 +48,7 @@ class ControlledScheduleIterator implements ScheduleIteratorInterface
     /**
      * {@inheritdoc}
      */
-    public function next()
+    public function next(): void
     {
         $this->scheduleIterator->next();
     }
@@ -56,7 +56,7 @@ class ControlledScheduleIterator implements ScheduleIteratorInterface
     /**
      * {@inheritdoc}
      */
-    public function key()
+    public function key(): mixed
     {
         return $this->scheduleIterator->key();
     }
@@ -64,7 +64,7 @@ class ControlledScheduleIterator implements ScheduleIteratorInterface
     /**
      * {@inheritdoc}
      */
-    public function valid()
+    public function valid(): bool
     {
         return !$this->controller->doStop() && $this->scheduleIterator->valid();
     }
@@ -72,7 +72,7 @@ class ControlledScheduleIterator implements ScheduleIteratorInterface
     /**
      * {@inheritdoc}
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->scheduleIterator->rewind();
     }
