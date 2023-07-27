@@ -75,7 +75,7 @@ class ScheduleManagerScheduleIterator implements ScheduleIteratorInterface
     /**
      * {@inheritdoc}
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->position = 0;
         $this->offset = 0;
@@ -85,7 +85,7 @@ class ScheduleManagerScheduleIterator implements ScheduleIteratorInterface
     /**
      * {@inheritdoc}
      */
-    public function valid()
+    public function valid(): bool
     {
         return $this->current != null;
     }
@@ -93,7 +93,7 @@ class ScheduleManagerScheduleIterator implements ScheduleIteratorInterface
     /**
      * {@inheritdoc}
      */
-    public function key()
+    public function key(): mixed
     {
         return $this->position;
     }
@@ -101,7 +101,7 @@ class ScheduleManagerScheduleIterator implements ScheduleIteratorInterface
     /**
      * {@inheritdoc}
      */
-    public function current()
+    public function current(): mixed
     {
         return $this->current;
     }
@@ -109,7 +109,7 @@ class ScheduleManagerScheduleIterator implements ScheduleIteratorInterface
     /**
      * {@inheritdoc}
      */
-    public function next()
+    public function next(): void
     {
         $this->setCurrent();
         $this->position++;
