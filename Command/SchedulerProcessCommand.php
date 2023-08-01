@@ -15,6 +15,7 @@ use Abc\Bundle\SchedulerBundle\Schedule\Exception\SchedulerException;
 use Abc\Bundle\SchedulerBundle\Schedule\SchedulerInterface;
 use Abc\ProcessControl\ControllerInterface;
 use Abc\ProcessControl\NullController;
+use Abc\Bundle\SchedulerBundle\Iterator\IteratorRegistry;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -25,14 +26,33 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class SchedulerProcessCommand extends Command
 {
+    protected static $defaultName = 'abc:scheduler:process';
+    protected static $defaultDescription = 'Process schedules';
+
+    /** @var SchedulerInterface */
+    private $scheduler;
+    /** @var IteratorRegistry */
+    private $iteratorRegistry;
+
+    public function __construct(
+        SchedulerInterface $scheduler,
+        IteratorRegistry $iteratorRegistry
+    )
+    {
+        $this->scheduler = $scheduler;
+        $this->iteratorRegistry = $iteratorRegistry;
+
+        parent::__construct($name);
+    }
+
     /**
      * {@inheritDoc}
      */
     protected function configure()
     {
         $this
-            ->setName('abc:scheduler:process')
-            ->setDescription('Process schedules')
+            ->setName(self::$defaultName)
+            ->setDescription(self::$defaultDescription)
             ->addOption('iteration', 'i', InputOption::VALUE_OPTIONAL, 'Run n iterations before exiting', false);
     }
 
@@ -67,9 +87,9 @@ class SchedulerProcessCommand extends Command
      */
     protected function iterate(InputInterface $input, OutputInterface $output, $startMemoryUsage)
     {
-        foreach ($this->getIteratorRegistry()->all() as $name => $iterator) {
+        foreach ($this->iteratorRegistry->all() as $name => $iterator) {
             try {
-                $numOfProcessed = $this->getScheduler()->process($iterator);
+                $numOfProcessed = $this->scheduler->process($iterator);
 
                 if ($numOfProcessed > 0) {
                     $output->writeln(
@@ -87,30 +107,10 @@ class SchedulerProcessCommand extends Command
     }
 
     /**
-     * @return SchedulerInterface
-     */
-    protected function getScheduler()
-    {
-        return $this->getContainer()->get('abc.scheduler.scheduler');
-    }
-
-    /**
-     * @return IteratorRegistryInterface
-     */
-    protected function getIteratorRegistry()
-    {
-        return $this->getContainer()->get('abc.scheduler.iterator_registry');
-    }
-
-    /**
      * @return ControllerInterface
      */
     public function getProcessController()
     {
-        if(!$this->getContainer()->has('abc.process_control.controller') || !$this->getContainer()->get('abc.process_control.controller') instanceof ControllerInterface) {
-            return new NullController();
-        }
-
-        return $this->getContainer()->get('abc.process_control.controller');
+        return new NullController();
     }
 }
