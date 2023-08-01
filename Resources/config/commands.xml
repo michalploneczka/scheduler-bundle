@@ -7,6 +7,8 @@
     <services>
 
         <service id="abc.scheduler.process" class="Abc\Bundle\SchedulerBundle\Command\SchedulerProcessCommand" public="true">
+            <argument type="service" id="abc.scheduler.scheduler"/>
+            <argument type="service" id="abc.scheduler.iterator_registry"/>
             <tag name="console.command"/>
         </service>
 
