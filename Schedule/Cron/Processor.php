@@ -49,6 +49,10 @@ class Processor implements ProcessorInterface
 
         $cron = $this->expressionFactory->create($schedule->getExpression());
 
+        if (is_null($currentDateTime)) {
+            $currentDateTime = 'now';
+        }
+        
         return $cron->isDue($currentDateTime);
     }
 }
