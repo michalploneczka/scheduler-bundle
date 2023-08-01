@@ -15,7 +15,7 @@ use Abc\Bundle\SchedulerBundle\Schedule\Exception\SchedulerException;
 use Abc\Bundle\SchedulerBundle\Schedule\SchedulerInterface;
 use Abc\ProcessControl\ControllerInterface;
 use Abc\ProcessControl\NullController;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -23,7 +23,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * @author Hannes Schulz <hannes.schulz@aboutcoders.com>
  */
-class SchedulerProcessCommand extends ContainerAwareCommand
+class SchedulerProcessCommand extends Command
 {
     /**
      * {@inheritDoc}
