@@ -42,7 +42,7 @@ class SchedulerProcessCommand extends Command
         $this->scheduler = $scheduler;
         $this->iteratorRegistry = $iteratorRegistry;
 
-        parent::__construct($name);
+        parent::__construct();
     }
 
     /**
