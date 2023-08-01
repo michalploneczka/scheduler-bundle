@@ -11,8 +11,10 @@
 namespace Abc\Bundle\SchedulerBundle\DependencyInjection\Compiler;
 
 use Abc\Bundle\SchedulerBundle\Event\SchedulerEvents;
+use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Registers event listeners and subscribers for schedule events.
@@ -85,7 +87,7 @@ class RegisterListenersPass implements CompilerPassInterface
                     throw new \InvalidArgumentException(sprintf('Service "%s" must define the "method" attribute on "%s" tags.', $id, $this->listenerTag));
                 }
 
-                $definition->addMethodCall('addListener', array(SchedulerEvents::SCHEDULE, array($id, $tag['method']), $priority));
+                $definition->addMethodCall('addListener', array(SchedulerEvents::SCHEDULE, [new ServiceClosureArgument(new Reference($id)), $tag['method']], $priority));
             }
         }
 
