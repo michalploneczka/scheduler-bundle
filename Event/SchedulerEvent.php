@@ -11,7 +11,7 @@
 namespace Abc\Bundle\SchedulerBundle\Event;
 
 use Abc\Bundle\SchedulerBundle\Model\ScheduleInterface;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * SchedulerEvent contains an object of type ScheduleInterface
