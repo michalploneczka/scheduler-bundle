@@ -38,6 +38,7 @@ class AbcSchedulerExtension extends Extension
         $loader->load('scheduler.xml');
         $loader->load('processors.xml');
         $loader->load('validator.xml');
+        $loader->load('commands.xml');
 
         $this->remapParametersNamespaces(
             $config, $container, array(
