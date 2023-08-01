@@ -75,7 +75,7 @@ class Scheduler implements SchedulerInterface
                     $schedule->setScheduledAt(new \DateTime());
                     $iterator->getManager()->save($schedule);
 
-                    $this->dispatcher->dispatch(SchedulerEvents::SCHEDULE, new SchedulerEvent($schedule));
+                    $this->dispatcher->dispatch(new SchedulerEvent($schedule), SchedulerEvents::SCHEDULE);
 
                     $numOfProcessed++;
                 }
